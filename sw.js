@@ -1,5 +1,5 @@
-const CACHE='sand-pocket-c0f2780889fc13e7';
-const FILES=["./apple-touch-icon.png","./assets/hint-worker-DM9TMV5R.js","./assets/index-BBLJRZDB.css","./assets/index-DHuFsia2.js","./favicon.svg","./icon-192.png","./icon-512.png","./icon.svg","./index.html","./manifest.webmanifest"];
+const CACHE='sand-pocket-4799bf2b6ead795d';
+const FILES=["./apple-touch-icon.png","./assets/hint-worker-B_91IuTf.js","./assets/index-BBLJRZDB.css","./assets/index-CP5haN0v.js","./favicon.svg","./icon-192.png","./icon-512.png","./icon.svg","./index.html","./manifest.webmanifest"];
 self.addEventListener('install',event=>{event.waitUntil((async()=>{try{const cache=await caches.open(CACHE);await cache.addAll(FILES);await self.skipWaiting();}catch(error){await caches.delete(CACHE);throw error;}})());});
 self.addEventListener('activate',event=>{event.waitUntil((async()=>{const versions=(await caches.keys()).filter(key=>key.startsWith('sand-pocket-'));for(const key of versions.slice(0,-2))if(key!==CACHE)await caches.delete(key);await self.clients.claim();})());});
 self.addEventListener('fetch',event=>{if(event.request.method!=='GET'||new URL(event.request.url).origin!==self.location.origin)return;event.respondWith((async()=>{const cache=await caches.open(CACHE);if(event.request.mode==='navigate'){try{return await fetch(event.request);}catch{return (await cache.match('./index.html'))||Response.error();}}return (await cache.match(event.request))||(await caches.match(event.request))||fetch(event.request);})());});
